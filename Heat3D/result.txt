@@ -1,0 +1,41 @@
+tep = 0.000003180337879096
+
+  Convergence = 0.000000000 after 100001 steps
+
+  Problem size = 8192
+
+  Wall Clock =    20552.443395
+
+  Computed solution in outputPar_reduced.dat
+
+
+Full: Time step = 0.000000056895766955
+
+  Convergence = 0.000000000 after 400001 steps
+
+  Problem size = 524288
+
+  Wall Clock =    20552.224966
+
+  Computed solution in outputPar.dat
+Time step = 0.000003180337879096
+
+  Convergence = 0.000000000 after 100001 steps
+
+  Problem size = 8192
+
+  Wall Clock =    21464.923038
+
+  Computed solution in outputPar_reduced.dat
+
+
+Full: Time step = 0.000000056895766955
+
+  Convergence = 0.000000000 after 400001 steps
+
+  Problem size = 524288
+
+  Wall Clock =    21464.170837
+
+  Computed solution in outputPar.dat
+

@@ -1,0 +1,18 @@
+  size_x
+8
+  size_y
+16
+  size_z
+8
+  x_domains
+2
+  y_domains
+2
+  z_domains
+1
+  MaxStep
+64
+  dt
+1.0e-1
+  cnv_tol
+0.0000000000010

@@ -1,0 +1,30 @@
+For linnear x0[x_high][y_high][z_high]
+
+Delta:
+
+totaldiff=26142.7477703775, sz=76296, average absolute error value:0.3426489956
+totaldiff=29966.9459662934, sz=76296, average relative error rate:0.3927721763
+
+
+type=double nx=76296 ny=1 nz=1 raw=610368 zfp=66208 ratio=9.22 rate=6.942
+
+
+For
+
+totaldiff=76230.9490533702, sz=76296, average absolute error value:0.9991473872
+totaldiff=111567.7482551652, sz=76296, average relative error rate:1.4623014084
+
+type=double nx=76296 ny=1 nz=1 raw=610368 zfp=79336 ratio=7.69 rate=8.319
+
+
+
+Compress original
+type=double nx=76296 ny=1 nz=1 raw=610368 zfp=103224 ratio=5.91 rate=10.82
+
+
+
+For different initializations
+
+
+
+

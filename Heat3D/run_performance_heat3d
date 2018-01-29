@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# Number of processes
+declare -a nbproc=(2 4 8 16 32 64)
+# Number of subdomains
+declare -a sizex=(2 2 2 4 4 4)
+declare -a sizey=(1 2 2 2 4 4)
+declare -a sizez=(1 1 2 2 2 4)
+# Size of Grid
+declare -a size=(64 128 256)
+# Iteration index
+declare -i i=0
+declare -i j=0
+#Max steps
+maxstep=1000000000
+# Time step
+dt=1.0e-1
+# Convergence value
+convergence=10.00e-1
+# Delete previous 'performances.txt' file
+rm -f performances.txt
+
+# Main loop for batch execution
+while [ "${size[$i]}" != "" ]
+do  
+  # Sequential performance
+  if [ $j -eq 0 ] ; then
+    # Output parameters
+    echo "Sequential version :"
+    echo "Size of grid = ${size[$i]}"
+    output=$(echo -e "${size[$i]}\n${size[$i]}\n${size[$i]}\n$maxstep\n$dt\n$convergence\n" \
+             | ./explicitSeq | grep -v criterion)
+    time_final=$(echo $output | awk '{print $40}')
+    echo "${size[$i]} 1 $time_final" | awk '{printf("%8d %8d %14.7f\n",$1,$2,$3)}' >> performances.txt
+    # Output runtime
+    echo -e "\nRuntime = $time_final\n" 
+  fi
+  # Change current size into 'param' file
+  sed -i "2c ${size[$i]}" param
+  sed -i "4c ${size[$i]}" param
+  sed -i "6c ${size[$i]}" param
+  # Loop on number of processes
+  while [ "${nbproc[$j]}" != "" ]
+  do
+    # Change current subdomains
+    sed -i "8c ${sizex[$j]}" param
+    sed -i "10c ${sizey[$j]}" param
+    sed -i "12c ${sizez[$j]}" param
+    # Set max step
+    sed -i "14c ${maxstep}" param
+    # Set time step
+    sed -i "16c ${dt}" param
+    # Set convergence
+    sed -i "18c ${convergence}" param
+    # Output parameters
+    echo "Parallel version :"
+    echo "Size of grid = ${size[$i]}"
+    echo "Subdomains of x = ${sizex[$j]} - Subdomains of y = ${sizey[$j]} - Subdomains of z = ${sizez[$j]}" 
+    echo "Number of processes = ${nbproc[$j]}"
+    # Parallel performance
+    output=$(mpirun -mca opal_set_max_sys_limits 1 -np ${nbproc[$j]} ./explicitPar | grep -v criterion)
+    # Final time
+    time_final=$(echo $output | awk '{print $18}')
+    # Record into 'performances.txt' file
+    echo "${size[$i]} ${nbproc[$j]} $time_final" | awk '{printf("%8d %8d %14.7f\n",$1,$2,$3)}' >> performances.txt
+    # Output runtime
+    echo -e "\nRuntime = $time_final\n" 
+    # Increment nbproc index
+    j=$j+1
+  done
+# Blank line for separating blocks
+echo " " >> performances.txt
+# Reset nbproc index
+j=0
+# Increment size index
+i=$i+1
+done
