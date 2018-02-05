@@ -1,0 +1,14 @@
+  size_x
+32
+  size_y
+32
+  x_domains
+2
+  y_domains
+4
+  MaxStep
+1000
+  dt
+1.0e-1
+  cnv_tol
+1.0e-1
